@@ -47,11 +47,6 @@ const ShowStudents = () => {
         console.log(address);
         setMessage("Sorry the delete function has been disabled for now.")
         setShowPopup(true)
-
-        // dispatch(deleteUser(deleteID, address))
-        //     .then(() => {
-        //         dispatch(getAllStudents(currentUser._id));
-        //     })
     }
 
     const studentColumns = [
@@ -60,14 +55,24 @@ const ShowStudents = () => {
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ]
 
-    const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
-        return {
-            name: student.name,
-            rollNum: student.rollNum,
-            sclassName: student.sclassName.sclassName,
-            id: student._id,
-        };
-    })
+    // const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
+    //     return {
+    //         name: student.name,
+    //         rollNum: student.rollNum,
+    //         sclassName: student.sclassName.sclassName,
+    //         id: student._id,
+    //     };
+    // })
+    const studentRows = React.useMemo(() => {
+  if (!Array.isArray(studentsList)) return [];
+  return studentsList.map((student) => ({
+    name: student.name,
+    rollNum: student.rollNum,
+    sclassName: student.sclassName?.sclassName || 'N/A',
+    id: student._id,
+  }));
+}, [studentsList]);
+
 
     const StudentButtonHaver = ({ row }) => {
         const options = ['Take Attendance', 'Provide Marks'];

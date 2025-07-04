@@ -1,6 +1,6 @@
 const router = require('express').Router();
+const multer = require('multer');
 
-// const { adminRegister, adminLogIn, deleteAdmin, getAdminDetail, updateAdmin } = require('../controllers/admin-controller.js');
 
 const { adminRegister, adminLogIn, getAdminDetail} = require('../controllers/admin-controller.js');
 
@@ -24,12 +24,14 @@ const {
     removeStudentAttendance } = require('../controllers/student_controller.js');
 const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+const { bulkUploadAttendance, getClasses, getSubjects} = require('../controllers/attendance-controller.js');
 
 // Admin
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
 
 router.get("/Admin/:id", getAdminDetail)
+
 
 // Student
 
@@ -113,7 +115,13 @@ router.delete("/Subject/:id", deleteSubject)
 router.delete("/Subjects/:id", deleteSubjects)
 router.delete("/SubjectsClass/:id", deleteSubjectsByClass)
 
-router.post('/bulk-upload')
+//Bulk Upload
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
+router.post('/bulk-upload',upload.single('file'), bulkUploadAttendance);
+
+router.get('/subjects',getSubjects)
+router.get('/classes', getClasses)
 
 module.exports = router;

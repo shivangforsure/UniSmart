@@ -42,6 +42,8 @@ import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
 
+import BulkUploadPage from '../BulkUploadPage'
+
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
@@ -96,6 +98,9 @@ const AdminDashboard = () => {
                         <Route path='*' element={<Navigate to="/" />} />
                         <Route path="/Admin/dashboard" element={<AdminHomePage />} />
                         <Route path="/Admin/profile" element={<AdminProfile />} />
+                        
+                        <Route path="/Admin/bulk-upload" element={<BulkUploadPage />} />
+
                         <Route path="/Admin/complains" element={<SeeComplains />} />
 
                         {/* Notice */}

@@ -11,6 +11,8 @@ import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import ReportIcon from '@mui/icons-material/Report';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+
 
 const SideBar = () => {
     const location = useLocation();
@@ -59,14 +61,16 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Complains" />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Admin/complains">
+                <ListItemButton component={Link} to="/Admin/bulk-upload">
                     <ListItemIcon>
-                        <ReportIcon color={location.pathname.startsWith("/Admin/complains") ? 'primary' : 'inherit'} />
-                    </ListItemIcon>
-                    <ListItemText primary="Bulk Upload" />
+                    <UploadFileIcon color={location.pathname === "/Admin/bulk-upload" ? 'primary' : 'inherit'} />
+                </ListItemIcon>
+                <ListItemText primary="Bulk Upload" />
                 </ListItemButton>
+
+
             </React.Fragment>
-            <Divider sx={{ my: 1 }} />
+             <Divider sx={{ my: 1 }} />
             <React.Fragment>
                 <ListSubheader component="div" inset>
                     User
