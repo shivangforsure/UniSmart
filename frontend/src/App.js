@@ -10,6 +10,7 @@ import AdminRegisterPage from './pages/admin/AdminRegisterPage';
 import ChooseUser from './pages/ChooseUser';
 
 import BulkUploadPage from './pages/BulkUploadPage'
+import TeacherReports from './pages/TeacherReports';
 const App = () => {
   const { currentRole } = useSelector(state => state.user);
 
@@ -27,6 +28,7 @@ const App = () => {
 
           <Route path="/Adminregister" element={<AdminRegisterPage />} />
           <Route path="/Admin/bulk-upload" element={<BulkUploadPage />} />
+          <Route path="/Teacher/reports" element={<TeacherReports />} />
           <Route path='*' element={<Navigate to="/" />} />
         </Routes>}
 
@@ -52,3 +54,4 @@ const App = () => {
 }
 
 export default App
+

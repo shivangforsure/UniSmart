@@ -26,7 +26,7 @@ const bulkUploadAttendance = async (req, res) => {
 
       const { name, rollNum, password, date, status, email } = row;
 
-      // 🔍 Validate required fields
+      //Validate required fields
       const missingFields = [];
       if (!name) missingFields.push('name');
       if (!rollNum) missingFields.push('rollNum');
@@ -40,14 +40,14 @@ const bulkUploadAttendance = async (req, res) => {
         continue;
       }
 
-      // 🔍 Find existing student
+      //Find existing student
       let student = await Student.findOne({
         rollNum,
         sclassName: classId,
         school: schoolId
       });
 
-      // ➕ Create new student if not found
+      //Create new student if not found
       if (!student) {
         try {
           const hashedPass = await bcrypt.hash(password.toString(), 10);
