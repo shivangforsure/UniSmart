@@ -125,3 +125,27 @@ export const addStuff = (fields, address) => async (dispatch) => {
         dispatch(authError(error));
     }
 };
+
+export const sendOtp = (email, role) => async (dispatch) => {
+    dispatch(authRequest());
+    try {
+        const res = await axios.post(`${REACT_APP_BASE_URL}/send-otp`, { email, role });
+        dispatch(doneSuccess(res.data.message));
+    } catch (error) {
+        dispatch(authError(error));
+    }
+};
+
+export const verifyOtp = (email, otp, role) => async (dispatch) => {
+    dispatch(authRequest());
+    try {
+        const res = await axios.post(`${REACT_APP_BASE_URL}/verify-otp`, { email, otp, role });
+        if (res.data.role) {
+            dispatch(authSuccess(res.data));
+        } else {
+            dispatch(authFailed("OTP verification failed"));
+        }
+    } catch (error) {
+        dispatch(authError(error));
+    }
+};

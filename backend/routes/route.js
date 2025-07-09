@@ -28,6 +28,9 @@ const { bulkUploadAttendance, getClasses, getSubjects } = require('../controller
 
 const { generateTeacherReport } = require('../controllers/report-controller.js')
 
+const { sendOtp, verifyOtp } = require("../controllers/otp-controller.js");
+
+
 // Admin
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
@@ -128,5 +131,8 @@ router.get('/teacher/:id/report', generateTeacherReport);
 
 router.get('/subjects', getSubjects)
 router.get('/classes', getClasses)
+
+router.post('/send-otp', sendOtp);
+router.post('/verify-otp', verifyOtp);
 
 module.exports = router;

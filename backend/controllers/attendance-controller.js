@@ -60,9 +60,9 @@ const bulkUploadAttendance = async (req, res) => {
             email
           });
           await student.save();
-          console.log(`👶 Created new student: ${student.name}`);
+          console.log(`Created new student: ${student.name}`);
         } catch (err) {
-          console.error('❌ Error creating student:', err);
+          console.error('Error creating student:', err);
           failed.push({ row, error: 'Failed to create student', details: err.message });
           continue;
         }
