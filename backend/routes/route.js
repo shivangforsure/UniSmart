@@ -30,6 +30,19 @@ const { generateTeacherReport } = require('../controllers/report-controller.js')
 
 const { sendOtp, verifyOtp } = require("../controllers/otp-controller.js");
 
+const { uploadResource, getResourcesBySubject, upload, getTeacherSubjects, getResourcesByTeacher, getStudentResources } = require('../controllers/resource-controller');
+
+const { deleteResource, updateResourceTitle } = require('../controllers/resource-controller');
+
+const {
+    markResourceAsDone,
+    getDoneResourcesByStudent
+} = require('../controllers/resource-controller');
+
+
+const { getResourcesForStudent, markResourceAsViewed } = require('../controllers/resource-controller');
+
+
 
 // Admin
 router.post('/AdminReg', adminRegister);
@@ -122,9 +135,9 @@ router.delete("/SubjectsClass/:id", deleteSubjectsByClass)
 
 //Bulk Upload
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const excelUpload = multer({ storage });
 
-router.post('/bulk-upload', upload.single('file'), bulkUploadAttendance);
+router.post('/bulk-upload', excelUpload.single('file'), bulkUploadAttendance);
 
 router.get('/teacher/:id/report', generateTeacherReport);
 
@@ -134,5 +147,24 @@ router.get('/classes', getClasses)
 
 router.post('/send-otp', sendOtp);
 router.post('/verify-otp', verifyOtp);
+
+
+
+router.post('/resource-upload', upload.single('file'), uploadResource);
+router.get('/resources/:subjectId', getResourcesBySubject);
+router.get('/resources/teacher/:teacherId', getResourcesByTeacher);
+router.delete('/resource/:id', deleteResource);
+router.put('/resource/:id', updateResourceTitle);
+
+router.get('/teacher/:teacherId/subjects', getTeacherSubjects)
+
+router.get('/resources/student/:studentId', getResourcesForStudent);
+router.post('/resource/mark-done', markResourceAsViewed);
+
+
+
+router.get('/resource/done/:studentId', getDoneResourcesByStudent);
+
+
 
 module.exports = router;

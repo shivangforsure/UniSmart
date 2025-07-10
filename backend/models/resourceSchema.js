@@ -1,29 +1,33 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const resourceSchema = new mongoose.Schema({
-    teacherId: {
-        type: mongoose.Schema.Types.ObjectId,
+    title: {
+        type: String,
         required: true,
-        ref: 'Teacher'
+    },
+    url: {
+        type: String,
+        required: true,
+    },
+    fileType: {
+        type: String,
+        required: true,
+    },
+    subject: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "subject",
+        required: true,
+    },
+    teacher: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "teacher",
+        required: true,
     },
     classId: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "sclass",
         required: true,
-        ref: 'Sclass'
     },
-    subjectId: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'Subject'
-    },
-    title: String,
-    description: String,
-    fileUrl: String, // If uploaded
-    link: String,    // If it's a YouTube/Google Drive/etc. link
-    uploadedAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('Resource', resourceSchema);
+module.exports = mongoose.model("resource", resourceSchema);

@@ -7,6 +7,8 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import DescriptionIcon from '@mui/icons-material/Description';
+
 import { useSelector } from 'react-redux';
 
 const TeacherSideBar = () => {
@@ -23,24 +25,28 @@ const TeacherSideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItemButton>
+
                 <ListItemButton component={Link} to="/Teacher/class">
                     <ListItemIcon>
                         <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/class") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary={`Class ${sclassName.sclassName}`} />
                 </ListItemButton>
-                {/* <ListItemButton component={Link} to="/Teacher/complain">
-                    <ListItemIcon>
-                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/complain") ? 'primary' : 'inherit'} />
-                    </ListItemIcon>
-                    <ListItemText primary="Complain" />
-                </ListItemButton> */}
+
                 <ListItemButton component={Link} to="/Teacher/reports">
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/reports") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Generate Reports" />
                 </ListItemButton>
+
+                <ListItemButton component={Link} to="/Teacher/upload-resource">
+                    <ListItemIcon>
+                        <DescriptionIcon color={location.pathname.startsWith("/Teacher/upload-resource") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Upload Resources" />
+                </ListItemButton>
+
 
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

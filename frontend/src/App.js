@@ -11,6 +11,10 @@ import ChooseUser from './pages/ChooseUser';
 
 import BulkUploadPage from './pages/BulkUploadPage'
 import TeacherReports from './pages/TeacherReports';
+// import UploadResources from './pages/teacher/UploadResources';
+
+import ViewResources from './pages/student/ViewResources';
+
 const App = () => {
   const { currentRole } = useSelector(state => state.user);
 
@@ -25,10 +29,11 @@ const App = () => {
           <Route path="/Adminlogin" element={<LoginPage role="Admin" />} />
           <Route path="/Studentlogin" element={<LoginPage role="Student" />} />
           <Route path="/Teacherlogin" element={<LoginPage role="Teacher" />} />
-
           <Route path="/Adminregister" element={<AdminRegisterPage />} />
           <Route path="/Admin/bulk-upload" element={<BulkUploadPage />} />
           <Route path="/Teacher/reports" element={<TeacherReports />} />
+          {/* <Route path="/Teacher/upload-resource" element={<UploadResources />} /> */}
+          <Route path="/Student/view-resources" element={<ViewResources />} />
           <Route path='*' element={<Navigate to="/" />} />
         </Routes>}
 

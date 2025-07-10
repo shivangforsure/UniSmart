@@ -23,8 +23,12 @@ import TeacherHomePage from './TeacherHomePage';
 import TeacherProfile from './TeacherProfile';
 import TeacherViewStudent from './TeacherViewStudent';
 import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
+import UploadResources from './UploadResources';
 
 import TeacherReports from '../TeacherReports'
+
+// import TeacherHistoryResources from './TeacherHistoryResources';
+
 
 const TeacherDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -77,7 +81,6 @@ const TeacherDashboard = () => {
                     <Toolbar />
                     <Routes>
                         <Route path="/" element={<TeacherHomePage />} />
-                        <Route path='*' element={<Navigate to="/" />} />
                         <Route path="/Teacher/dashboard" element={<TeacherHomePage />} />
                         <Route path="/Teacher/profile" element={<TeacherProfile />} />
 
@@ -91,8 +94,11 @@ const TeacherDashboard = () => {
 
                         <Route path="/Teacher/reports" element={<TeacherReports />} />
 
+                        <Route path="/Teacher/upload-resource" element={<UploadResources />} /> {/* ✅ Add this */}
 
                         <Route path="/logout" element={<Logout />} />
+
+                        <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                 </Box>
             </Box>

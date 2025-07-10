@@ -2,6 +2,9 @@ const Subject = require('../models/subjectSchema.js');
 const Teacher = require('../models/teacherSchema.js');
 const Student = require('../models/studentSchema.js');
 
+const mongoose = require("mongoose");
+
+
 const subjectCreate = async (req, res) => {
     try {
         const subjects = req.body.subjects.map((subject) => ({
@@ -46,18 +49,38 @@ const allSubjects = async (req, res) => {
     }
 };
 
+// const classSubjects = async (req, res) => {
+//     try {
+//         let subjects = await Subject.find({ sclassName: req.params.id })
+//         if (subjects.length > 0) {
+//             res.send(subjects)
+//         } else {
+//             res.send({ message: "No subjects found" });
+//         }
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// };
+
 const classSubjects = async (req, res) => {
     try {
-        let subjects = await Subject.find({ sclassName: req.params.id })
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+            return res.status(400).json({ message: "Invalid class ID" });
+        }
+
+        const subjects = await Subject.find({ sclassName: req.params.id });
         if (subjects.length > 0) {
-            res.send(subjects)
+            res.send(subjects);
+
         } else {
             res.send({ message: "No subjects found" });
         }
     } catch (err) {
-        res.status(500).json(err);
+        console.error(err);
+        res.status(500).json({ message: "Server error" });
     }
 };
+
 
 const freeSubjectList = async (req, res) => {
     try {
