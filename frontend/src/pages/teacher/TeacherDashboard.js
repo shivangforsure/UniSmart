@@ -26,9 +26,12 @@ import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
 import UploadResources from './UploadResources';
 
 import TeacherReports from '../TeacherReports'
+import TeacherQuizHistory from './TeacherQuizHistory';
 
 // import TeacherHistoryResources from './TeacherHistoryResources';
 
+import CreateQuiz from './CreateQuiz';
+import ViewQuizResults from './ViewQuizResults';
 
 const TeacherDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -94,9 +97,13 @@ const TeacherDashboard = () => {
 
                         <Route path="/Teacher/reports" element={<TeacherReports />} />
 
-                        <Route path="/Teacher/upload-resource" element={<UploadResources />} /> {/* ✅ Add this */}
+                        <Route path="/Teacher/upload-resource" element={<UploadResources />} />
 
                         <Route path="/logout" element={<Logout />} />
+
+                        <Route path="/Teacher/create-quiz" element={<CreateQuiz />} />
+                        <Route path="/Teacher/quiz-results/:quizId" element={<ViewQuizResults />} />
+                        <Route path="/Teacher/quiz-history" element={<TeacherQuizHistory />} />
 
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>

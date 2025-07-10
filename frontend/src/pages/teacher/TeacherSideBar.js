@@ -8,6 +8,8 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import DescriptionIcon from '@mui/icons-material/Description';
+import QuizIcon from '@mui/icons-material/Quiz';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 import { useSelector } from 'react-redux';
 
@@ -45,6 +47,20 @@ const TeacherSideBar = () => {
                         <DescriptionIcon color={location.pathname.startsWith("/Teacher/upload-resource") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Upload Resources" />
+                </ListItemButton>
+
+                <ListItemButton component={Link} to="/Teacher/create-quiz">
+                    <ListItemIcon>
+                        <QuizIcon color={location.pathname.startsWith("/Teacher/create-quiz") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Create Quiz" />
+                </ListItemButton>
+
+                <ListItemButton component={Link} to="/Teacher/quiz-history">
+                    <ListItemIcon>
+                        <AssignmentIcon color={location.pathname.startsWith("/Teacher/quiz-history") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Quiz History" />
                 </ListItemButton>
 
 

@@ -42,7 +42,7 @@ const {
 
 const { getResourcesForStudent, markResourceAsViewed } = require('../controllers/resource-controller');
 
-
+const quizCtrl = require('../controllers/quizController');
 
 // Admin
 router.post('/AdminReg', adminRegister);
@@ -160,10 +160,18 @@ router.get('/teacher/:teacherId/subjects', getTeacherSubjects)
 
 router.get('/resources/student/:studentId', getResourcesForStudent);
 router.post('/resource/mark-done', markResourceAsViewed);
-
-
-
 router.get('/resource/done/:studentId', getDoneResourcesByStudent);
+
+router.post('/quiz/create', quizCtrl.createQuiz);
+router.get('/quiz/available/:classId/:subjectId', quizCtrl.getAvailableQuizzes);
+router.get('/quiz/:quizId', quizCtrl.getQuiz);
+router.post('/quiz/submit/:quizId', quizCtrl.submitQuiz);
+router.get('/quiz/results/:quizId', quizCtrl.getQuizSubmissions);
+router.get('/quiz/results/export/:quizId', quizCtrl.exportQuizResults);
+router.get('/quiz/all/:classId/:subjectId', quizCtrl.getAllQuizzes);
+
+router.get('/quizzes/teacher/:teacherId', quizCtrl.getQuizzesByTeacher);
+router.get('/quiz/student/:studentId/:classId/:subjectId', quizCtrl.getStudentQuizList);
 
 
 

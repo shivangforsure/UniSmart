@@ -21,7 +21,8 @@ import Logout from '../Logout'
 import AccountMenu from '../../components/AccountMenu';
 import { AppBar, Drawer } from '../../components/styles';
 import StudentResources from './StudentResources';
-
+import StudentQuizzes from './StudentQuizzes';
+import AttemptQuiz from './AttemptQuiz';
 
 const StudentDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -83,6 +84,9 @@ const StudentDashboard = () => {
                         <Route path="/Student/complain" element={<StudentComplain />} />
 
                         <Route path="/Student/resources" element={<StudentResources />} />
+
+                        <Route path="/Student/quizzes" element={<StudentQuizzes />} />
+                        <Route path="/Student/quiz/:quizId" element={<AttemptQuiz />} />
 
                         <Route path="/logout" element={<Logout />} />
                     </Routes>
