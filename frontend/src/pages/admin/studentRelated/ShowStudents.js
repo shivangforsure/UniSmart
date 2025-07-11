@@ -15,7 +15,6 @@ import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
@@ -43,8 +42,8 @@ const ShowStudents = () => {
     const [message, setMessage] = React.useState("");
 
     const deleteHandler = (deleteID, address) => {
-        console.log(deleteID);
-        console.log(address);
+        // console.log(deleteID);
+        // console.log(address);
         setMessage("Sorry the delete function has been disabled for now.")
         setShowPopup(true)
     }
@@ -55,23 +54,15 @@ const ShowStudents = () => {
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ]
 
-    // const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
-    //     return {
-    //         name: student.name,
-    //         rollNum: student.rollNum,
-    //         sclassName: student.sclassName.sclassName,
-    //         id: student._id,
-    //     };
-    // })
     const studentRows = React.useMemo(() => {
-  if (!Array.isArray(studentsList)) return [];
-  return studentsList.map((student) => ({
-    name: student.name,
-    rollNum: student.rollNum,
-    sclassName: student.sclassName?.sclassName || 'N/A',
-    id: student._id,
-  }));
-}, [studentsList]);
+        if (!Array.isArray(studentsList)) return [];
+        return studentsList.map((student) => ({
+            name: student.name,
+            rollNum: student.rollNum,
+            sclassName: student.sclassName?.sclassName || 'N/A',
+            id: student._id,
+        }));
+    }, [studentsList]);
 
 
     const StudentButtonHaver = ({ row }) => {

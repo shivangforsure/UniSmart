@@ -28,7 +28,7 @@ const UploadResources = () => {
         const fetchSubjects = async () => {
             try {
                 const res = await axios.get(`http://localhost:5000/teacher/${currentUser._id}/subjects`);
-                console.log("Subjects fetched:", res.data);
+                // console.log("Subjects fetched:", res.data);
                 setSubjects(res.data);
             } catch (err) {
                 console.error("Error fetching subjects:", err);

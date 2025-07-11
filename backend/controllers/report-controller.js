@@ -1,14 +1,12 @@
 const XLSX = require('xlsx');
 const Teacher = require('../models/teacherSchema');
 const Student = require('../models/studentSchema');
-const Subject = require('../models/subjectSchema');
-const Admin = require('../models/adminSchema');
 
 const generateTeacherReport = async (req, res) => {
     try {
         const teacherId = req.params.id;
 
-        // 🔍 Get teacher with subjects & class
+        // Get teacher with subjects & class
         const teacher = await Teacher.findById(teacherId)
             .populate('teachSclass')
             .populate('teachSubject')
@@ -16,7 +14,7 @@ const generateTeacherReport = async (req, res) => {
 
         if (!teacher) return res.status(404).json({ message: 'Teacher not found' });
 
-        // 🔍 Fetch students in that class
+        // Fetch students in that class
         const students = await Student.find({ sclassName: teacher.teachSclass._id, school: teacher.school._id })
             .populate('sclassName')
             .populate('school')
@@ -66,14 +64,14 @@ const generateTeacherReport = async (req, res) => {
             };
         });
 
-        // 📦 Convert to Excel
+        // Convert to Excel
         const worksheet = XLSX.utils.json_to_sheet(reportData);
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
 
         const buffer = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' });
 
-        // 📤 Send Excel as response
+        // Send Excel as response
         res.setHeader('Content-Disposition', 'attachment; filename=Teacher_Report.xlsx');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         res.send(buffer);

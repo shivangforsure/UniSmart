@@ -1,15 +1,14 @@
 const Otp = require("../models/otpSchema");
 const nodemailer = require("nodemailer");
-const Student = require("../models/studentSchema");
 const Teacher = require("../models/teacherSchema");
 const Admin = require("../models/adminSchema");
-
+require("dotenv").config();
 // Transporter setup
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-        user: "goyalshivang123@gmail.com",
-        pass: "kvuj gpxt kwgs nwvh",
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     },
 });
 
@@ -29,7 +28,7 @@ exports.sendOtp = async (req, res) => {
     const otp = generateOtp();
 
     const mailOptions = {
-        from: 'goyalshivang123@gmail.com',
+        from: process.env.EMAIL_USER,
         to: email,
         subject: 'Your OTP for login',
         text: `Your OTP is ${otp}. It will expire in 5 minutes.`

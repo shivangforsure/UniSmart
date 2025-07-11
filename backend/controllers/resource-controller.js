@@ -12,32 +12,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// const uploadResource = async (req, res) => {
-//     try {
-//         const { title, subjectId, teacherId, link } = req.body;
-
-//         let fileType = 'link';
-//         let url = link;
-
-//         if (req.file) {
-//             console.log("File received:", req.file);
-//             const result = await cloudinary.uploader.upload(req.file.path, {
-//                 resource_type: "auto",
-//                 folder: "resources"
-//             });
-//             url = result.secure_url;
-//             fileType = req.file.originalname.split('.').pop();
-//             fs.unlinkSync(req.file.path); // remove local copy
-//         }
-
-//         const newRes = new Resource({ title, subject: subjectId, teacher: teacherId, url, fileType });
-//         await newRes.save();
-//         res.status(201).json({ message: "Resource uploaded", data: newRes });
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: "Upload failed", error: err.message });
-//     }
-// };
 
 const uploadResource = async (req, res) => {
     try {
@@ -47,7 +21,7 @@ const uploadResource = async (req, res) => {
         let url = link;
 
         if (req.file) {
-            console.log("File received:", req.file);
+            // console.log("File received:", req.file);
             const result = await cloudinary.uploader.upload(req.file.path, {
                 resource_type: "raw",
                 folder: "resources",
@@ -88,6 +62,7 @@ const getResourcesBySubject = async (req, res) => {
     }
 };
 
+
 const getTeacherSubjects = async (req, res) => {
     try {
         const { teacherId } = req.params;
@@ -98,22 +73,6 @@ const getTeacherSubjects = async (req, res) => {
     }
 };
 
-// const getResourcesByTeacher = async (req, res) => {
-//     try {
-//         console.log("Request for teacher resources:", req.params.teacherId);
-
-//         const { teacherId } = req.params;
-//         const resources = await Resource.find({ teacher: teacherId })
-//             .populate('subject', 'subName')
-//             .sort({ uploadedAt: -1 });
-//         res.status(200).json(resources);
-//     } catch (err) {
-//         console.error("Error fetching teacher resources", err);
-//         res.status(500).json({ message: "Failed to fetch resources", error: err.message });
-//     }
-// };
-
-// const Resource = require('../models/resourceSchema');
 
 const getResourcesByTeacher = async (req, res) => {
     try {
@@ -123,7 +82,7 @@ const getResourcesByTeacher = async (req, res) => {
             .populate('subject', 'subName')
             .sort({ createdAt: -1 });
 
-        console.log("Found resources:", resources);
+        // console.log("Found resources:", resources);
         res.status(200).json(resources);
     } catch (err) {
         console.error("Error fetching resources:", err);
@@ -141,6 +100,7 @@ const deleteResource = async (req, res) => {
     }
 };
 
+
 const updateResourceTitle = async (req, res) => {
     try {
         const { title } = req.body;
@@ -150,6 +110,7 @@ const updateResourceTitle = async (req, res) => {
         res.status(500).json({ message: "Update failed", error: err.message });
     }
 };
+
 
 const markResourceAsViewed = async (req, res) => {
     try {
@@ -177,6 +138,7 @@ const getDoneResourcesByStudent = async (req, res) => {
         res.status(500).json({ message: "Failed to fetch progress", error: err.message });
     }
 };
+
 
 const getResourcesForStudent = async (req, res) => {
     try {

@@ -3,7 +3,7 @@ const Submission = require('../models/QuizSubmission');
 const ExcelJS = require('exceljs');
 
 
-// ✅ Create a quiz
+// Create a quiz
 exports.createQuiz = async (req, res) => {
     try {
         const { teacherId, classId, subjectId, title, questions, startTime, endTime, duration } = req.body;
@@ -31,7 +31,7 @@ exports.createQuiz = async (req, res) => {
     }
 };
 
-// ✅ Get available quizzes for student (active + filtered)
+// Get available quizzes for student (active + filtered)
 exports.getAvailableQuizzes = async (req, res) => {
     try {
         const now = new Date();
@@ -49,18 +49,7 @@ exports.getAvailableQuizzes = async (req, res) => {
     }
 };
 
-// ✅ Get a specific quiz (student attempts it)
-// exports.getQuiz = async (req, res) => {
-//     try {
-//         const quiz = await Quiz.findById(req.params.quizId);
-//         if (!quiz) return res.status(404).json({ message: "Quiz not found" });
-//         res.json(quiz);
-//     } catch (err) {
-//         console.error("Error fetching quiz:", err.message);
-//         res.status(500).json({ message: "Failed to get quiz" });
-//     }
-// };
-
+// Get a specific quiz (student attempts it)
 exports.getQuiz = async (req, res) => {
     try {
         const quiz = await Quiz.findById(req.params.quizId);
@@ -89,52 +78,11 @@ exports.getQuiz = async (req, res) => {
 
 
 
-// ✅ Submit quiz response
-// exports.submitQuiz = async (req, res) => {
-//     try {
-//         const { quizId } = req.params;
-//         const { studentId, answers } = req.body;
-
-//         const quiz = await Quiz.findById(quizId);
-//         if (!quiz) return res.status(404).json({ message: "Quiz not found" });
-
-//         const now = new Date();
-//         if (now < quiz.startTime || now > quiz.endTime) {
-//             return res.status(400).json({ message: "Quiz not active currently" });
-//         }
-
-//         // Prevent resubmission
-//         const existing = await Submission.findOne({ quiz: quizId, student: studentId });
-//         if (existing) return res.status(400).json({ message: "Already submitted" });
-
-//         if (now > quiz.endTime) return res.status(400).json({ msg: "Deadline passed" });
-//         // Score calculation
-//         let score = 0;
-//         answers.forEach(a => {
-//             const q = quiz.questions[a.questionIndex];
-//             if (q && q.correctAnswerIndex === a.selectedIndex) score++;
-//         });
-
-//         const submission = new Submission({
-//             quiz: quizId,
-//             student: studentId,
-//             answers,
-//             submittedAt: now,
-//             score
-//         });
-
-//         await submission.save();
-//         res.status(201).json({ message: "Quiz submitted", submission });
-//     } catch (err) {
-//         console.error("Error submitting quiz:", err.message);
-//         res.status(500).json({ message: "Failed to submit quiz" });
-//     }
-// };
-
+// Submit quiz response
 exports.submitQuiz = async (req, res) => {
     try {
-        console.log("✅ Received body:", req.body);
-        console.log("✅ Params:", req.params);
+        // console.log("Received body:", req.body);
+        // console.log("Params:", req.params);
 
         const { quizId } = req.params;
         const { studentId, answers } = req.body;
@@ -154,7 +102,7 @@ exports.submitQuiz = async (req, res) => {
         const existing = await Submission.findOne({ quiz: quizId, student: studentId });
         if (existing) return res.status(400).json({ message: "Already submitted" });
 
-        // ✅ Score calculation
+        // Score calculation
         let score = 0;
         answers.forEach(a => {
             const q = quiz.questions[a.questionIndex];
@@ -172,13 +120,13 @@ exports.submitQuiz = async (req, res) => {
         await submission.save();
         res.status(201).json({ message: "Quiz submitted", submission });
     } catch (err) {
-        console.error("❌ Error submitting quiz:", err.message);
+        console.error("Error submitting quiz:", err.message);
         res.status(500).json({ message: "Failed to submit quiz" });
     }
 };
 
 
-// ✅ Get all submissions for a quiz (for teacher/admin)
+// Get all submissions for a quiz (for teacher/admin)
 exports.getQuizSubmissions = async (req, res) => {
     try {
         const submissions = await Submission.find({ quiz: req.params.quizId })

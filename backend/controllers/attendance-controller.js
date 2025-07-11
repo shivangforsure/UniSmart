@@ -4,7 +4,7 @@ const Student = require('../models/studentSchema');
 const Subject = require('../models/subjectSchema');
 const Sclass = require('../models/sclassSchema');
 
-// 📦 Bulk Upload Attendance
+//  Bulk Upload Attendance
 const bulkUploadAttendance = async (req, res) => {
   try {
     const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
@@ -22,7 +22,7 @@ const bulkUploadAttendance = async (req, res) => {
     const failed = [];
 
     for (const row of data) {
-      console.log('🔄 Processing row:', row);
+      // console.log('Processing row:', row);
 
       const { name, rollNum, password, date, status, email } = row;
 
@@ -35,7 +35,7 @@ const bulkUploadAttendance = async (req, res) => {
       if (!status) missingFields.push('status');
 
       if (missingFields.length) {
-        console.log('⚠️ Missing fields →', missingFields);
+        // console.log('Missing fields →', missingFields);
         failed.push({ row, error: 'Missing required fields', missingFields });
         continue;
       }
@@ -60,7 +60,7 @@ const bulkUploadAttendance = async (req, res) => {
             email
           });
           await student.save();
-          console.log(`Created new student: ${student.name}`);
+          // console.log(`Created new student: ${student.name}`);
         } catch (err) {
           console.error('Error creating student:', err);
           failed.push({ row, error: 'Failed to create student', details: err.message });
@@ -68,19 +68,19 @@ const bulkUploadAttendance = async (req, res) => {
         }
       }
 
-      // 🕵️ Check if attendance already marked
+      //  Check if attendance already marked
       const alreadyMarked = student.attendance.some(att =>
         att.subName.toString() === subjectId &&
         new Date(att.date).toDateString() === new Date(date).toDateString()
       );
 
       if (alreadyMarked) {
-        console.log(`⚠️ Attendance already marked for ${student.name} on ${date}`);
+        // console.log(`Attendance already marked for ${student.name} on ${date}`);
         failed.push({ row, error: 'Attendance already marked' });
         continue;
       }
 
-      // ✅ Normalize and push attendance
+      //  Normalize and push attendance
       const normalizedStatus = status.toLowerCase() === 'present' ? 'Present' : 'Absent';
 
       student.attendance.push({
@@ -90,7 +90,7 @@ const bulkUploadAttendance = async (req, res) => {
       });
 
       await student.save();
-      console.log(`✅ Attendance added for ${student.name} on ${date}`);
+      // console.log(`Attendance added for ${student.name} on ${date}`);
       success++;
     }
 
@@ -101,29 +101,29 @@ const bulkUploadAttendance = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('[❌ Upload Error]', error);
+    console.error('[Upload Error]', error);
     res.status(500).json({ message: 'Error processing Excel file', error: error.message });
   }
 };
 
-// 📥 Fetch Subjects
+// Fetch Subjects
 const getSubjects = async (req, res) => {
   try {
     const subjects = await Subject.find({}, 'subName');
     res.status(200).json(subjects);
   } catch (error) {
-    console.error('❌ Failed to fetch subjects:', error);
+    console.error('Failed to fetch subjects:', error);
     res.status(500).json({ message: 'Failed to fetch subjects', error: error.message });
   }
 };
 
-// 📥 Fetch Classes
+//  Fetch Classes
 const getClasses = async (req, res) => {
   try {
     const classes = await Sclass.find({}, 'sclassName');
     res.status(200).json(classes);
   } catch (error) {
-    console.error('❌ Failed to fetch classes:', error);
+    console.error('Failed to fetch classes:', error);
     res.status(500).json({ message: 'Failed to fetch classes', error: error.message });
   }
 };

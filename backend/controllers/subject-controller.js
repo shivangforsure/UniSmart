@@ -49,18 +49,6 @@ const allSubjects = async (req, res) => {
     }
 };
 
-// const classSubjects = async (req, res) => {
-//     try {
-//         let subjects = await Subject.find({ sclassName: req.params.id })
-//         if (subjects.length > 0) {
-//             res.send(subjects)
-//         } else {
-//             res.send({ message: "No subjects found" });
-//         }
-//     } catch (err) {
-//         res.status(500).json(err);
-//     }
-// };
 
 const classSubjects = async (req, res) => {
     try {

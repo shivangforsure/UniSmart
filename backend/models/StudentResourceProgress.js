@@ -1,4 +1,3 @@
-// models/StudentResourceProgress.js
 const mongoose = require('mongoose');
 
 const progressSchema = new mongoose.Schema({

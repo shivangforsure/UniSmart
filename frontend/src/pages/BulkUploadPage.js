@@ -32,9 +32,7 @@ const BulkUploadPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const { currentUser } = useSelector((state) => state.user);
-
-  // ✅ Hardcoded school ID
+  // Hardcoded school ID
   const schoolId = '64f7e5ad47efac321234abcd';
 
   useEffect(() => {
@@ -64,15 +62,14 @@ const BulkUploadPage = () => {
     formData.append('file', file);
     formData.append('subjectId', subjectId);
     formData.append('classId', classId);
-    formData.append('schoolId', schoolId); // ✅ hardcoded
+    formData.append('schoolId', schoolId);
 
     try {
       setLoading(true);
       const res = await axios.post('http://localhost:5000/bulk-upload', formData);
       setResult(res.data);
 
-      // ✅ Refresh student list
-      // dispatch(getAllStudents(currentUser.school));
+      // Refresh student list
       dispatch(getAllStudents(schoolId));
       navigate('/Admin/students');
 
@@ -141,8 +138,8 @@ const BulkUploadPage = () => {
       {result && (
         <Box mt={4}>
           <Typography variant="h6">Upload Result</Typography>
-          <Typography>✅ Success Count: {result.successCount}</Typography>
-          <Typography>❌ Failed Rows: {result.failedRows?.length}</Typography>
+          <Typography>Success Count: {result.successCount}</Typography>
+          <Typography>Failed Rows: {result.failedRows?.length}</Typography>
         </Box>
       )}
     </Box>
