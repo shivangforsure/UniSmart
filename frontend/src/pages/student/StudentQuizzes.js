@@ -18,7 +18,7 @@ const StudentQuizzes = () => {
 
     const fetchSubjects = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/ClassSubjects/${currentUser.sclassName._id}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/ClassSubjects/${currentUser.sclassName._id}`);
             setSubjects(res.data);
         } catch (err) {
             console.error("Error fetching subjects", err);
@@ -32,7 +32,7 @@ const StudentQuizzes = () => {
             const studentId = currentUser._id;
             if (!classId || !subjectId) return;
 
-            const res = await axios.get(`http://localhost:5000/quiz/student/${studentId}/${classId}/${subjectId}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/quiz/student/${studentId}/${classId}/${subjectId}`);
             setQuizzes(res.data);
         } catch (err) {
             console.error("Error fetching quizzes", err);

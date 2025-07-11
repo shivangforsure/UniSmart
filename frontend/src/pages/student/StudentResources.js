@@ -9,7 +9,7 @@ const StudentResources = () => {
 
     const fetchResources = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/resources/student/${currentUser._id}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/resources/student/${currentUser._id}`);
             setResources(res.data);
         } catch (err) {
             console.error("Failed:", err);
@@ -22,7 +22,7 @@ const StudentResources = () => {
 
     const handleMarkAsDone = async (resId) => {
         try {
-            await axios.post("http://localhost:5000/resource/mark-done", {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/resource/mark-done`, {
                 studentId: currentUser._id,
                 resourceId: resId,
             });

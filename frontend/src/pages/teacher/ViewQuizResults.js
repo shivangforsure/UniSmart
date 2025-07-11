@@ -13,7 +13,7 @@ const ViewQuizResults = () => {
     useEffect(() => {
         const fetchSubmissions = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/quiz/results/${quizId}`);
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/quiz/results/${quizId}`);
                 setSubmissions(res.data);
             } catch (err) {
                 console.error("Error fetching quiz submissions", err);
@@ -71,7 +71,7 @@ const ViewQuizResults = () => {
                 variant="contained"
                 sx={{ mb: 2 }}
                 onClick={() => {
-                    window.open(`http://localhost:5000/quiz/results/export/${quizId}`, '_blank');
+                    window.open(`${process.env.REACT_APP_BASE_URL}/quiz/results/export/${quizId}`, '_blank');
                 }}
             >
                 Download Results as Excel

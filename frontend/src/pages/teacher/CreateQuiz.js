@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Box, Typography, TextField, Button, MenuItem, IconButton, Grid
+    Box, Typography, TextField, Button, MenuItem, Grid
 } from '@mui/material';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ const CreateQuiz = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/teacher/${currentUser._id}/subjects`);
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/teacher/${currentUser._id}/subjects`);
                 setSubjects(res.data);
             } catch (err) {
                 console.error("Error fetching subjects", err);
@@ -54,7 +54,7 @@ const CreateQuiz = () => {
                 endTime,
                 duration
             };
-            await axios.post('http://localhost:5000/quiz/create', payload);
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/quiz/create`, payload);
             alert("Quiz created successfully");
             navigate('/Teacher/quiz-history');
         } catch (err) {

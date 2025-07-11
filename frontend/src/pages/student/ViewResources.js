@@ -9,7 +9,7 @@ const ViewResources = () => {
 
     const fetchResources = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/v1/resources/${currentUser.subject}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/resources/${currentUser.subject}`);
             setResources(res.data);
         } catch (err) {
             console.error(err);

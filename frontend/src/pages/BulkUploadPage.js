@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAllStudents } from '../redux/studentRelated/studentHandle'; // adjust path if needed
 
 const BulkUploadPage = () => {
@@ -38,8 +38,8 @@ const BulkUploadPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const subjectsRes = await axios.get('http://localhost:5000/subjects');
-        const classRes = await axios.get('http://localhost:5000/classes');
+        const subjectsRes = await axios.get(`${process.env.REACT_APP_BASE_URL}/subjects`);
+        const classRes = await axios.get(`${process.env.REACT_APP_BASE_URL}/classes`);
 
         setSubjects(subjectsRes.data);
         setClasses(classRes.data);
@@ -66,7 +66,7 @@ const BulkUploadPage = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post('http://localhost:5000/bulk-upload', formData);
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/bulk-upload`, formData);
       setResult(res.data);
 
       // Refresh student list

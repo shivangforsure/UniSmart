@@ -27,7 +27,7 @@ const UploadResources = () => {
     useEffect(() => {
         const fetchSubjects = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/teacher/${currentUser._id}/subjects`);
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/teacher/${currentUser._id}/subjects`);
                 // console.log("Subjects fetched:", res.data);
                 setSubjects(res.data);
             } catch (err) {
@@ -49,7 +49,7 @@ const UploadResources = () => {
         formData.append("title", title);
 
         try {
-            await axios.post("http://localhost:5000/resource-upload", formData);
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/resource-upload`, formData);
             alert("File uploaded successfully!");
             setFile(null);
             setSubjectId('');

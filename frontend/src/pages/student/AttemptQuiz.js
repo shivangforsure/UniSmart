@@ -22,7 +22,7 @@ const AttemptQuiz = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/quiz/${quizId}`, {
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/quiz/${quizId}`, {
                     params: { studentId: currentUser._id }
                 });
 
@@ -45,7 +45,7 @@ const AttemptQuiz = () => {
 
                 // If quiz already submitted, fetch submission
                 if (quizData.questions[0]?.correctAnswerIndex !== undefined) {
-                    const resultRes = await axios.get(`http://localhost:5000/quiz/results/${quizId}`);
+                    const resultRes = await axios.get(`${process.env.REACT_APP_BASE_URL}/quiz/results/${quizId}`);
                     const studentSubmission = resultRes.data.find(s => s.student._id === currentUser._id);
 
                     if (studentSubmission) {
@@ -110,7 +110,7 @@ const AttemptQuiz = () => {
 
         try {
             await axios.post(
-                `http://localhost:5000/quiz/submit/${quiz._id}`,
+                `${process.env.REACT_APP_BASE_URL}/quiz/submit/${quiz._id}`,
                 payload,
                 { headers: { 'Content-Type': 'application/json' } }
             );
@@ -123,7 +123,7 @@ const AttemptQuiz = () => {
             setScore(scoreCount);
             setSubmitted(true);
 
-            const refreshedQuiz = await axios.get(`http://localhost:5000/quiz/${quiz._id}`, {
+            const refreshedQuiz = await axios.get(`${process.env.REACT_APP_BASE_URL}/quiz/${quiz._id}`, {
                 params: { studentId: currentUser._id }
             });
             setQuiz(refreshedQuiz.data);

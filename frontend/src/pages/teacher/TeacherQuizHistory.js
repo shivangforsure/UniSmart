@@ -14,7 +14,7 @@ const TeacherQuizHistory = () => {
     useEffect(() => {
         const fetchQuizzes = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/quizzes/teacher/${currentUser._id}`);
+                const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/quizzes/teacher/${currentUser._id}`);
                 setQuizzes(res.data);
             } catch (err) {
                 console.error("Error fetching quiz history", err);

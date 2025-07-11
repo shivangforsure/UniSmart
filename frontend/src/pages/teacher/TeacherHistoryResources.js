@@ -15,7 +15,7 @@ const TeacherHistoryResources = ({ refreshTrigger }) => {
 
     const fetchResources = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/resources/teacher/${currentUser._id}`);
+            const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/resources/teacher/${currentUser._id}`);
             setResources(res.data);
         } catch (err) {
             console.error("Failed to fetch teacher resources", err);
@@ -29,7 +29,7 @@ const TeacherHistoryResources = ({ refreshTrigger }) => {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this resource?")) return;
         try {
-            await axios.delete(`http://localhost:5000/resource/${id}`);
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}/resource/${id}`);
             fetchResources();
         } catch (err) {
             console.error("Delete failed", err);
@@ -38,7 +38,7 @@ const TeacherHistoryResources = ({ refreshTrigger }) => {
 
     const handleEditSave = async (id) => {
         try {
-            await axios.put(`http://localhost:5000/resource/${id}`, { title: editedTitle });
+            await axios.put(`${process.env.REACT_APP_BASE_URL}/resource/${id}`, { title: editedTitle });
             setEditingId(null);
             setEditedTitle('');
             fetchResources();

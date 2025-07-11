@@ -7,7 +7,7 @@ const TeacherReports = () => {
 
     const handleDownloadReport = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/teacher/${currentUser._id}/report`);
+            const res = await fetch(`${process.env.REACT_APP_BASE_URL}/${currentUser._id}/report`);
             const blob = await res.blob();
             const url = window.URL.createObjectURL(blob);
 
