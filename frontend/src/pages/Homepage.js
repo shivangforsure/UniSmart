@@ -17,7 +17,7 @@ const Homepage = () => {
                         <StyledTitle>
                             UniSmart
                             <br/>
-                             <i style={{fontSize: '20px'}}>AI Powered University Learning Management System (ULMS)</i>
+                             <i style={{fontSize: '20px'}}>University Learning Management System (ULMS)</i>
                         </StyledTitle>
                         
                         <StyledBox>
